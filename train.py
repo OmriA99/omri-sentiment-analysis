@@ -142,6 +142,7 @@ def train():
 
             if iteration == 0 or iteration == 1:
                 print("[train()], X = {}, y = {}".format(X.shape, y))
+                print("X - {}".format(x[0,0:10]))
 
             X_lengths = get_lengths(X, PADD_VAL)
             if DEBUG:
@@ -149,7 +150,7 @@ def train():
                 print("y.shape = {}".format(y.shape))
                 print("type(X) = {}, type(X_lengths) = {}".format(X.dtype, X_lengths.dtype))
                 idx = 3
-                print("X[:{0}], X_length[:{0}]".format(idx))
+                #print("X[:{0}], X_length[:{0}]".format(idx))
                 #print(X[:idx])
                 #print(X_lengths[:idx])
 
