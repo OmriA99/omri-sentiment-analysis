@@ -92,9 +92,11 @@ def train():
     ## rnn_tuple_state = tf.nn.rnn_cell.LSTMStateTuple(init_state[0], init_state[1])
     lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_hidden)
     # lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
-    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_hidden)
+    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_hidden/2)
     # lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
-    stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell_1, lstm_cell_2])
+    lstm_cell_3 = tf.nn.rnn_cell.LSTMCell(n_hidden/4)
+    cells = [lstm_cell_1, lstm_cell_2, lstm_cell_3]
+    stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
     if DYN_RNN_COPY_THROUGH_STATE:
         outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
@@ -176,7 +178,7 @@ def train():
                     total_accuracy += _accuracy
 
                 average_accuracy = total_accuracy / eval_iterations
-                print("accuracy = {}".format(average_accuracy))
+                print("({}) accuracy = {}".format(iteration/1000, average_accuracy))
                 if average_accuracy > best_accuracy:
                     print("Best model!")
 
