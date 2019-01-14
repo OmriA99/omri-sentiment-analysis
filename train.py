@@ -90,11 +90,16 @@ def train():
     # Do we need the state tuple? Because we don't want the cell to be
     # initialized with the state from previous sentence
     ## rnn_tuple_state = tf.nn.rnn_cell.LSTMStateTuple(init_state[0], init_state[1])
+    lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_hidden)
+    lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
+    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_hidden)
+    lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
+    stacked_rnn_cell = MultiRNNCell([lstm_cell_1, lstm_cell_2])
 
     if DYN_RNN_COPY_THROUGH_STATE:
-        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
+        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
     else:
-        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32)
 
     # output layer
     weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
