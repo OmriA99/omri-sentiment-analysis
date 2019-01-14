@@ -68,7 +68,7 @@ def batch_generator_uniform_prob(data, batch_size, num_classes):
             label = i % num_classes
             start, end = cls_ranges[label]
             rand_idx = random.randint(start, end)
-            Xs[idx,:] = X[rand_idx,:]
+            Xs[idx] = X[rand_idx]
             ys[idx][label] = 1
 
             if DEBUG:
