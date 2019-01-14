@@ -2,7 +2,7 @@ import sys
 import numpy as np
 import random
 
-DEBUG = True
+DEBUG = False
 
 # How to generate batch?
 # Do we want to naively iterate through all examples
@@ -18,7 +18,7 @@ def batch_generator(data, batch_size):
             X.shape[0], y.shape[0]))
 
     size = X.shape[0]
-    
+
     i = 0
     while True:
         if i + batch_size <= size:
@@ -28,7 +28,7 @@ def batch_generator(data, batch_size):
             if i < size:
                 to_yield = X[i:size], y[i:size]
                 num_left_to_yield = batch_size - (size - i)
-                
+
                 i = 0
                 yield (np.concatenate((to_yield[0], X[i:i + num_left_to_yield]), axis=0),
                     np.concatenate((to_yield[1], y[i:i + num_left_to_yield]), axis=0))
@@ -37,7 +37,7 @@ def batch_generator(data, batch_size):
             else:
                 i = 0
 
-        
+
 def batch_generator_uniform_prob(data, batch_size, num_classes):
     """
     Generates the next batch
@@ -52,7 +52,7 @@ def batch_generator_uniform_prob(data, batch_size, num_classes):
             X.shape[0], y.shape[0]))
 
     size = X.shape[0]
-    
+
     i = 0
     last = 0
     while True:
@@ -100,7 +100,7 @@ def sort_data(data, num_classes):
     for cls in range(num_classes):
         end = np.argmax(y == (cls + 1))
         if cls == num_classes -1:
-            end = len(y)    
+            end = len(y)
         cls_ranges.append((start, end-1))
         start = end
 
@@ -115,7 +115,7 @@ def load_word_vectors(path):
 def find_first_occ(arr, target_val):
     """
     Returns first occurrence of target_val in arr
-    
+
     :param arr: array to search target_val in
     :param target_val: value to search its first occurrence in arr
     :return: index of 1st occurrence of target_val in arr (if no such occurrence return -1)
@@ -130,7 +130,7 @@ def find_first_occ(arr, target_val):
 def get_lengths(X, padd_value):
     """
     Returns the lengths of the unpadded vector for each vector in X
-    
+
     :param X: array of arrays to calculate their lengths
     :param padd_value: padding value
     :return: numpy array of lengths of unpadded parts in arrays of X
@@ -147,5 +147,3 @@ def get_lengths(X, padd_value):
         lengths.append(length)
 
     return np.array(lengths)
-
-
