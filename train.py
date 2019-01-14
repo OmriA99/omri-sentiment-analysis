@@ -8,8 +8,6 @@ import tqdm
 from utils import batch_generator, load_word_vectors, get_lengths, batch_generator_uniform_prob
 import data_loader
 
-# vim deleted everything! checking...
-
 # params
 NUM_CLASSES = 5
 LSTM_NUM_UNITS = 64
