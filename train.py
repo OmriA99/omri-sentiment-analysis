@@ -17,7 +17,7 @@ LOGS_BASE_DIR = "logs"
 MODELS_BASE_DIR = "models"
 WORD_VECTORS_PATH = "embeddings/word_vectors.npy"
 PADD_VAL = 0
-DEBUG = False
+DEBUG = True
 
 # tests
 # test results without dynamic_rnn's copy-through state

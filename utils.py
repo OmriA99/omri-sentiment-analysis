@@ -44,7 +44,7 @@ def batch_generator_uniform_prob(data, batch_size, num_classes):
     """
     X, y, cls_ranges = sort_data(data, num_classes)
 
-    if DEBUG or True:
+    if DEBUG:
         print("cls_ranges = {}".format(cls_ranges))
 
     if X.shape[0] != y.shape[0]:
@@ -71,7 +71,7 @@ def batch_generator_uniform_prob(data, batch_size, num_classes):
             Xs[idx,:] = X[rand_idx,:]
             ys[idx][label] = 1
 
-            if DEBUG or i == 0 or i == 1:
+            if DEBUG:
                 print("[batch_generator_uniform_prob()], i = {}, range = {}, randint = {}".format(
                     idx, cls_ranges[label], rand_idx))
                 # print(Xs[i], ys[i])
