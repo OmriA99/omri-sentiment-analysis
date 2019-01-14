@@ -104,7 +104,7 @@ def train():
     print("[train()], outputs = {}".format(outputs.shape))
     # outputs = tf.transpose(outputs, [1, 0, 2]) # max_seq_length, batch_size, word_vector_dim
     # last = tf.gather(outputs, int(outputs.get_shape()[0]) - 1)
-    last = outputs[-1, :, :]
+    last = outputs[:, -1, :]
     print("[train()], last = {}".format(last.shape))
     prediction = (tf.matmul(last, weight) + bias)
 
