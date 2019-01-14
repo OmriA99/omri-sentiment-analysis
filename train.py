@@ -17,7 +17,7 @@ LOGS_BASE_DIR = "logs"
 MODELS_BASE_DIR = "models"
 WORD_VECTORS_PATH = "embeddings/word_vectors.npy"
 PADD_VAL = 0
-DEBUG = False
+DEBUG = True
 
 # tests
 # test results without dynamic_rnn's copy-through state
@@ -65,10 +65,10 @@ def train():
     word_vectors = load_word_vectors(WORD_VECTORS_PATH)
 
     # Batch generators
-    train_batch_generator = batch_generator_uniform_prob((X_train, y_train), batch_size, num_classes)
-    eval_batch_generator = batch_generator_uniform_prob((X_eval, y_eval), batch_size, num_classes)
-    # train_batch_generator = batch_generator((X_train, y_train), batch_size)
-    # eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
+    # train_batch_generator = batch_generator_uniform_prob((X_train, y_train), batch_size, num_classes)
+    # eval_batch_generator = batch_generator_uniform_prob((X_eval, y_eval), batch_size, num_classes)
+    train_batch_generator = batch_generator((X_train, y_train), batch_size)
+    eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
 
 
     # ************** Model **************
