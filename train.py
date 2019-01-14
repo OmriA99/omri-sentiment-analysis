@@ -17,7 +17,7 @@ LOGS_BASE_DIR = "logs"
 MODELS_BASE_DIR = "models"
 WORD_VECTORS_PATH = "embeddings/word_vectors.npy"
 PADD_VAL = 0
-DEBUG = True
+DEBUG = False
 
 # tests
 # test results without dynamic_rnn's copy-through state
@@ -25,7 +25,7 @@ DYN_RNN_COPY_THROUGH_STATE = True
 # test Dropout
 USE_DROPOUT = False
 # test uniform distribution batch generation
-USE_ONE_HOT_LABELS = False
+USE_ONE_HOT_LABELS = True
 
 def evaluate():
     """
