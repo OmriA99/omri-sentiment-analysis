@@ -9,6 +9,7 @@ from utils import batch_generator, load_word_vectors, get_lengths, batch_generat
 import data_loader
 
 # HELLO FROM ATOM - started debugging (just for you paperspace! once again...)
+# came from github online!
 
 # params
 NUM_CLASSES = 5
