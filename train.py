@@ -17,7 +17,7 @@ LOGS_BASE_DIR = "logs"
 MODELS_BASE_DIR = "models"
 WORD_VECTORS_PATH = "embeddings/word_vectors.npy"
 PADD_VAL = 0
-DEBUG = True
+DEBUG = False
 
 # tests
 # test results without dynamic_rnn's copy-through state
@@ -142,7 +142,7 @@ def train():
 
             if iteration == 0 or iteration == 1:
                 print("[train()], X = {}, y = {}".format(X.shape, y))
-                print("X - {}".format(x[0,0:10]))
+                print("X - {}".format(X[:,0:20]))
 
             X_lengths = get_lengths(X, PADD_VAL)
             if DEBUG:
