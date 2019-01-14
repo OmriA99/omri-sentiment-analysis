@@ -139,6 +139,10 @@ def train():
             # shoudn't get exception, but check this
             # pass also
             X, y = next(train_batch_generator)
+
+            if iteration == 0 or iteration == 2:
+                print("[train()], X = {}, y = {}".format(X.shape, y.shape))
+
             X_lengths = get_lengths(X, PADD_VAL)
             if DEBUG:
                 print("X.shape = {}, X_lengths.shape = {}".format(X.shape, X_lengths.shape))
