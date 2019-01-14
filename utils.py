@@ -53,7 +53,6 @@ def batch_generator_uniform_prob(data, batch_size, num_classes):
 
     size = X.shape[0]
 
-
     i = 0
     last = 0
     while True:
