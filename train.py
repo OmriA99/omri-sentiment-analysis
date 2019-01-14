@@ -8,7 +8,7 @@ import tqdm
 from utils import batch_generator, load_word_vectors, get_lengths, batch_generator_uniform_prob
 import data_loader
 
-# HELLO FROM ATOM - started debugging
+# HELLO FROM ATOM - started debugging (just for you paperspace!)
 
 # params
 NUM_CLASSES = 5
