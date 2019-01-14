@@ -140,10 +140,6 @@ def train():
             # pass also
             X, y = next(train_batch_generator)
 
-            if iteration == 0 or iteration == 1:
-                print("[train()], X = {}, y = {}".format(X.shape, y))
-                print("X - {}".format(X[:,0:20]))
-
             X_lengths = get_lengths(X, PADD_VAL)
             if DEBUG:
                 print("X.shape = {}, X_lengths.shape = {}".format(X.shape, X_lengths.shape))

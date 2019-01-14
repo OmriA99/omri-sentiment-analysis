@@ -29,16 +29,16 @@ def clean_sentence(string):
 def get_data_params(base_dir_path):
     """
     Returns data params of the given dataset
-    
+
     :param base_dir_path: path to directory containing both train and test sets
     :return: data params dictionary
     """
-    
+
     params = {}
-    
+
     train_path = os.path.join(base_dir_path, "train.tsv")
     test_path = os.path.join(base_dir_path, "test.tsv")
-    
+
     # path
     params["train_path"] = train_path
     params["test_path"] = test_path
@@ -46,23 +46,23 @@ def get_data_params(base_dir_path):
     # max_seq_length
     train = pd.read_csv(train_path, sep='\t')
     test = pd.read_csv(test_path, sep='\t')
-    
+
     # params["max_seq_length"] = max(train.Phrase.str.len().max(), test.Phrase.str.len().max())
-    params["max_seq_length"] = 250
+    params["max_seq_length"] = 50
 
 
     # word_to_num_map
     words_arr = np.load(WORD_TO_NUM_FILE)
     word_to_num_map = {word.decode("UTF-8"): idx for (idx, word) in enumerate(words_arr)}
     params["word_to_num_map"] = word_to_num_map
-    
+
     return params
 
 
 def integerize_sentence(sentence, word_to_num_map, max_seq_len):
     """
     Pads, cleans and integrizes the given sentence
-    
+
     :param sentence: sentence to be processed
     :param word_to_num_map: map from word to its corresponding int
     :param max_seq_len: length to pad to
@@ -71,7 +71,7 @@ def integerize_sentence(sentence, word_to_num_map, max_seq_len):
     integerized = np.zeros((max_seq_len), dtype='int32')
     sentence = clean_sentence(sentence)
     splitted = sentence.split()
-    
+
     for (idx, word) in enumerate(splitted):
         if idx > max_seq_len:
             break
@@ -87,22 +87,22 @@ def process_inputs(X, data_params):
     """
     Processes inputs (sentence --> array of ints).
     Each word is converted into an int according to data_params["word_to_num_map"]
-    
+
     :param X: data to be processed, pandas.Series of phrases
     :data_params: data params
     :return: processed data as 2d numpy array (phrase --> array of ints)
     """
-    
+
     processed_X = np.zeros((len(X), data_params["max_seq_length"]), dtype=np.int32)
-    
+
     for idx, sentence in enumerate(X):
         integerized = integerize_sentence(sentence,
             data_params["word_to_num_map"] ,data_params["max_seq_length"])
-       
+
         if DEBUG:
             if idx == 33:
                 print("idx = {} sentence = {}, integerized = {}".format(idx, sentence, integerized))
-            
+
         processed_X[idx] = integerized
 
     return processed_X
@@ -148,29 +148,29 @@ def show_stats():
 def load_data(data_params, one_hot_labels=True):
     """
     Loads data from data file + Split into train & test
-    
+
     :param data_params: params of the data
     :return: trainset, testset
     """
     train = pd.read_csv(data_params["train_path"], sep='\t')
 
     # max_seq_len = data_params["max_seq_length"]
-    
+
     X_values = train['Phrase']
     labels_values = train.Sentiment.values
 
     if TEST_LOSS_CONVERGENCE:
         X_values = X_values[0:TEST_CONVERGENCE_NUM_EXAMPLES]
         labels_values = labels_values[0:TEST_CONVERGENCE_NUM_EXAMPLES]
-    
+
     if DEBUG:
         print("X_Values.shape = {}".format(X_values.shape))
         print("labels_values = {}".format(labels_values.shape))
         idx = 123
         print("idx = {}: {} --> {}".format(idx, X_values[idx], labels_values[idx]))
-    
+
     X_values = process_inputs(X_values, data_params)
-    
+
     # Convert into one hot vectors
     if one_hot_labels:
         labels = np.zeros((len(labels_values), NUM_CLASSES))
@@ -182,15 +182,15 @@ def load_data(data_params, one_hot_labels=True):
         idx = 125584
         print("idx = {}: X_Values[33] = {} --> labels[33] = {}".format(
         idx, X_values[idx], labels[idx]))
-    
+
     X_train , X_eval , y_train , y_eval = train_test_split(X_values, labels, test_size = TEST_SET_FRACT)
-    
+
     if DEBUG:
         print("X_train.shape = {}, y_train.shape = {}".format(
             X_train.shape, y_train.shape))
         print("X_test.shape = {}, y_test.shape = {}".format(
             X_eval.shape, y_eval.shape))
-            
+
         idx = 5
         print("Eval: idx = {} | {} --> {}".format(idx, X_eval[idx], y_eval[idx]))
 
@@ -205,7 +205,7 @@ def main():
         word = 'brush'
         print("word_to_num_map['{}'] = {}".format(
             word, data_params['word_to_num_map'][word]))
-    
+
         # idxs to words
         words_arr = np.load(WORD_TO_NUM_FILE)
         nums = [29, 19612, 1069, 641, 740, 15860] #3
@@ -213,7 +213,7 @@ def main():
         for num in nums:
             print("{} --> {}".format(num, words_arr[num]))
 
-    
+
 
     load_data(data_params)
 
