@@ -150,8 +150,8 @@ def train():
                 print("type(X) = {}, type(X_lengths) = {}".format(X.dtype, X_lengths.dtype))
                 idx = 3
                 print("X[:{0}], X_length[:{0}]".format(idx))
-                print(X[:idx])
-                print(X_lengths[:idx])
+                #print(X[:idx])
+                #print(X_lengths[:idx])
 
             sess.run([optimizer], feed_dict={input_data: X, labels: y, input_data_lengths: X_lengths})
 
