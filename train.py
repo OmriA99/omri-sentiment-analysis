@@ -8,7 +8,7 @@ import tqdm
 from utils import batch_generator, load_word_vectors, get_lengths, batch_generator_uniform_prob
 import data_loader
 
-# HELLO FROM ATOM - started debugging (just for you paperspace! once again...)
+# HELLO FROM ATOM - started debugging (just for you paperspace! once again... one last time!)
 # came from github online!
 
 # params
