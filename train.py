@@ -92,9 +92,9 @@ def train():
     ## rnn_tuple_state = tf.nn.rnn_cell.LSTMStateTuple(init_state[0], init_state[1])
     lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_hidden)
     # lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
-    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_hidden/2)
+    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_hidden)
     # lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
-    lstm_cell_3 = tf.nn.rnn_cell.LSTMCell(n_hidden/4)
+    lstm_cell_3 = tf.nn.rnn_cell.LSTMCell(n_hidden/2)
     cells = [lstm_cell_1, lstm_cell_2, lstm_cell_3]
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
@@ -105,7 +105,7 @@ def train():
 
     # output layer
     # weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
-    weight = tf.Variable(tf.truncated_normal([32, num_classes]))
+    weight = tf.Variable(tf.truncated_normal([64, num_classes]))
     bias = tf.Variable(tf.constant(0.1, shape=[num_classes]))
 
     # Let's try this logic
@@ -179,7 +179,7 @@ def train():
                     total_accuracy += _accuracy
 
                 average_accuracy = total_accuracy / eval_iterations
-                print("({}) accuracy = {}".format(iteration/1000, average_accuracy))
+                print("({}) accuracy = {}".format(int(iteration/1000), average_accuracy))
                 if average_accuracy > best_accuracy:
                     print("Best model!")
 

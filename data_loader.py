@@ -48,7 +48,7 @@ def get_data_params(base_dir_path):
     test = pd.read_csv(test_path, sep='\t')
 
     # params["max_seq_length"] = max(train.Phrase.str.len().max(), test.Phrase.str.len().max())
-    params["max_seq_length"] = 100
+    params["max_seq_length"] = 250
 
 
     # word_to_num_map
