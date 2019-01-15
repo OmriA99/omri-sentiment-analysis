@@ -45,7 +45,7 @@ def train():
     keep_prob = 0.5
     n_hidden = 128
     num_classes = 5
-    learning_rate = 1e-3
+    learning_rate = 1e-2
     model_save_path = os.path.join(MODELS_BASE_DIR, exp_name + '.cpkt')
     train_iterations = 100000
     eval_iterations = None
@@ -92,7 +92,7 @@ def train():
     ## rnn_tuple_state = tf.nn.rnn_cell.LSTMStateTuple(init_state[0], init_state[1])
     lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_hidden)
     # lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
-    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_hidden/2)
+    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_hidden)
     # lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
     cells = [lstm_cell_1, lstm_cell_2]
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
