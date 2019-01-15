@@ -104,7 +104,8 @@ def train():
         outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32)
 
     # output layer
-    weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
+    # weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
+    weight = tf.Variable(tf.truncated_normal([32, num_classes]))
     bias = tf.Variable(tf.constant(0.1, shape=[num_classes]))
 
     # Let's try this logic
