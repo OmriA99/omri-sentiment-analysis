@@ -152,7 +152,6 @@ def load_data(data_params, one_hot_labels=True):
     :param data_params: params of the data
     :return: trainset, testset
     """
-    show_stats()
     train = pd.read_csv(data_params["train_path"], sep='\t')
 
     # max_seq_len = data_params["max_seq_length"]
