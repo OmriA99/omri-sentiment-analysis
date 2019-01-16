@@ -18,7 +18,7 @@ UNKOWN_WORD = 399999
 WORD_TO_NUM_FILE = "embeddings/word_to_num.npy"
 DEBUG = False
 TEST_LOSS_CONVERGENCE = True
-TEST_CONVERGENCE_NUM_EXAMPLES = 60000
+TEST_CONVERGENCE_NUM_EXAMPLES = 75000
 
 # ~~ Helpers ~~
 def clean_sentence(string):
@@ -48,7 +48,7 @@ def get_data_params(base_dir_path):
     test = pd.read_csv(test_path, sep='\t')
 
     # params["max_seq_length"] = max(train.Phrase.str.len().max(), test.Phrase.str.len().max())
-    params["max_seq_length"] = 100
+    params["max_seq_length"] = 50
 
 
     # word_to_num_map
