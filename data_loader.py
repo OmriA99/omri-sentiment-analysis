@@ -73,7 +73,7 @@ def integerize_sentence(sentence, word_to_num_map, max_seq_len):
     splitted = sentence.split()
 
     for (idx, word) in enumerate(splitted):
-        if idx > max_seq_len:
+        if idx >= max_seq_len:
             break
         try:
             integerized[idx] = word_to_num_map[word]
