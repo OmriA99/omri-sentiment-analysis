@@ -25,7 +25,7 @@ DYN_RNN_COPY_THROUGH_STATE = True
 # test Dropout
 USE_DROPOUT = False
 # test uniform distribution batch generation
-USE_ONE_HOT_LABELS = False
+USE_ONE_HOT_LABELS = True
 
 def evaluate():
     """
@@ -88,10 +88,10 @@ def train():
     word_vectors = load_word_vectors(WORD_VECTORS_PATH)
 
     # Batch generators
-    train_batch_generator = batch_generator_uniform_prob((X_train, y_train), batch_size, num_classes)
-    eval_batch_generator = batch_generator_uniform_prob((X_eval, y_eval), batch_size, num_classes)
-    # train_batch_generator = batch_generator((X_train, y_train), batch_size)
-    # eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
+    # train_batch_generator = batch_generator_uniform_prob((X_train, y_train), batch_size, num_classes)
+    # eval_batch_generator = batch_generator_uniform_prob((X_eval, y_eval), batch_size, num_classes)
+    train_batch_generator = batch_generator((X_train, y_train), batch_size)
+    eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
 
 
     # ************** Model **************
@@ -170,8 +170,6 @@ def train():
             # shoudn't get exception, but check this
             # pass also
             X, y = next(train_batch_generator)
-
-            print(X[17])
 
             X_lengths = get_lengths(X, PADD_VAL)
             if DEBUG:
