@@ -27,42 +27,7 @@ USE_DROPOUT = False
 # test uniform distribution batch generation
 USE_ONE_HOT_LABELS = False
 
-def evaluate():
-    """
-    Given model & params - evaluate model's performance by
-    running it on the evaluation set
-    """
-
-def train():
-    """
-    Build and Train model by given params
-    """
-
-    # params
-    # assigned after loading data
-    max_seq_length = None
-    exp_name = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    keep_prob = 0.5
-    n_hidden = 128
-    num_classes = 5
-    learning_rate = 1e-6
-    model_save_path = os.path.join(MODELS_BASE_DIR, exp_name + '.cpkt')
-    train_iterations = 100000
-    eval_iterations = None
-    batch_size = 24
-    word_vector_dim = 300
-
-    # ************** Pre-Model **************
-    # Load data
-    data_params = data_loader.get_data_params(DATA_BASE_DIR)
-    max_seq_length = data_params["max_seq_length"]
-    X_train, X_eval, y_train, y_eval = data_loader.load_data(data_params, one_hot_labels=USE_ONE_HOT_LABELS)
-    print("==> Loaded data [X_train = {}, y_train = {}, X_eval = {}, y_eval = {}]".format(
-        X_train.shape, y_train.shape, X_eval.shape, y_eval.shape
-        ))
-
-    eval_iterations = math.ceil(float(X_eval.shape[0]) / batch_size)
-
+def showLabelsStats(y_eval, y_train):
     buckets = np.zeros([5])
     for eval in y_eval:
         if USE_ONE_HOT_LABELS:
@@ -84,6 +49,42 @@ def train():
             buckets[eval] += 1
     print("[train()], train_stats = {}".format(buckets))
 
+def evaluate():
+    """
+    Given model & params - evaluate model's performance by
+    running it on the evaluation set
+    """
+
+def train():
+    """
+    Build and Train model by given params
+    """
+
+    # params
+    # assigned after loading data
+    max_seq_length = None
+    exp_name = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    keep_prob = 0.5
+    n_hidden = 128
+    num_classes = 5
+    learning_rate = 1e-3
+    model_save_path = os.path.join(MODELS_BASE_DIR, exp_name + '.cpkt')
+    train_iterations = 100000
+    eval_iterations = None
+    batch_size = 24
+    word_vector_dim = 300
+
+    # ************** Pre-Model **************
+    # Load data
+    data_params = data_loader.get_data_params(DATA_BASE_DIR)
+    max_seq_length = data_params["max_seq_length"]
+    X_train, X_eval, y_train, y_eval = data_loader.load_data(data_params, one_hot_labels=USE_ONE_HOT_LABELS)
+    print("==> Loaded data [X_train = {}, y_train = {}, X_eval = {}, y_eval = {}]".format(
+        X_train.shape, y_train.shape, X_eval.shape, y_eval.shape
+        ))
+
+    eval_iterations = math.ceil(float(X_eval.shape[0]) / batch_size)
+
     # Load GloVe embbeding vectors
     word_vectors = load_word_vectors(WORD_VECTORS_PATH)
 
@@ -93,7 +94,13 @@ def train():
     # train_batch_generator = batch_generator((X_train, y_train), batch_size)
     # eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
 
-
+    X, y = next(train_batch_generator)
+    print("===============")
+    print(X)
+    print("===============")
+    print(y)
+    print("===============")
+    return
     # ************** Model **************
     # placeholders
     labels = tf.placeholder(tf.float32, [None, num_classes])

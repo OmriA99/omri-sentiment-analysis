@@ -71,7 +71,7 @@ def batch_generator_uniform_prob(data, batch_size, num_classes):
             Xs[idx] = X[rand_idx]
             ys[idx][label] = 1
 
-            if DEBUG or X.shape[0] == 12000:
+            if DEBUG:
                 print("[batch_generator_uniform_prob()], i = {}, range = {}, randint = {}, label = {}".format(
                     idx, cls_ranges[label], rand_idx, label))
                 # print(Xs[i], ys[i])
