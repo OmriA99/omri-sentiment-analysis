@@ -94,16 +94,6 @@ def train():
     # train_batch_generator = batch_generator((X_train, y_train), batch_size)
     # eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
 
-    X, y = next(train_batch_generator)
-    X, y = next(train_batch_generator)
-    X, y = next(train_batch_generator)
-    X, y = next(train_batch_generator)
-    print("===============")
-    print(X)
-    print("===============")
-    print(y)
-    print("===============")
-    return
     # ************** Model **************
     # placeholders
     labels = tf.placeholder(tf.float32, [None, num_classes])
@@ -131,9 +121,9 @@ def train():
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
     if DYN_RNN_COPY_THROUGH_STATE:
-        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
+        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
     else:
-        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32)
 
     # output layer
     # weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
