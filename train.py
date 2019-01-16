@@ -25,7 +25,7 @@ DYN_RNN_COPY_THROUGH_STATE = True
 # test Dropout
 USE_DROPOUT = False
 # test uniform distribution batch generation
-USE_ONE_HOT_LABELS = True
+USE_ONE_HOT_LABELS = False
 
 def evaluate():
     """
@@ -88,10 +88,10 @@ def train():
     word_vectors = load_word_vectors(WORD_VECTORS_PATH)
 
     # Batch generators
-    # train_batch_generator = batch_generator_uniform_prob((X_train, y_train), batch_size, num_classes)
-    # eval_batch_generator = batch_generator_uniform_prob((X_eval, y_eval), batch_size, num_classes)
-    train_batch_generator = batch_generator((X_train, y_train), batch_size)
-    eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
+    train_batch_generator = batch_generator_uniform_prob((X_train, y_train), batch_size, num_classes)
+    eval_batch_generator = batch_generator_uniform_prob((X_eval, y_eval), batch_size, num_classes)
+    # train_batch_generator = batch_generator((X_train, y_train), batch_size)
+    # eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
 
 
     # ************** Model **************
@@ -121,9 +121,9 @@ def train():
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
     if DYN_RNN_COPY_THROUGH_STATE:
-        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
+        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
     else:
-        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32)
+        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
 
     # output layer
     # weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
