@@ -65,17 +65,23 @@ def train():
 
     buckets = np.zeros([5])
     for eval in y_eval:
-        for idx, val in enumerate(eval):
-            if val == 1:
-                break
-        buckets[idx] += 1
+        if USE_ONE_HOT_LABELS:
+            for idx, val in enumerate(eval):
+                if val == 1:
+                    break
+            buckets[idx] += 1
+        else:
+            buckets[eval] += 1
     print("[train()], evaluation_stats = {}".format(buckets))
 
     for eval in y_train:
-        for idx, val in enumerate(eval):
-            if val == 1:
-                break
-        buckets[idx] += 1
+        if USE_ONE_HOT_LABELS:
+            for idx, val in enumerate(eval):
+                if val == 1:
+                    break
+            buckets[idx] += 1
+        else:
+            buckets[eval] += 1
     print("[train()], train_stats = {}".format(buckets))
 
     # Load GloVe embbeding vectors
