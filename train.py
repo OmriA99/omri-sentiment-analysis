@@ -89,10 +89,10 @@ def train():
     word_vectors = load_word_vectors(WORD_VECTORS_PATH)
 
     # Batch generators
-    train_batch_generator = batch_generator_uniform_prob((X_train, y_train), batch_size, num_classes)
-    eval_batch_generator = batch_generator_uniform_prob((X_eval, y_eval), batch_size, num_classes)
-    # train_batch_generator = batch_generator((X_train, y_train), batch_size)
-    # eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
+    # train_batch_generator = batch_generator_uniform_prob((X_train, y_train), batch_size, num_classes)
+    # eval_batch_generator = batch_generator_uniform_prob((X_eval, y_eval), batch_size, num_classes)
+    train_batch_generator = batch_generator((X_train, y_train), batch_size)
+    eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
 
     # ************** Model **************
     # placeholders
