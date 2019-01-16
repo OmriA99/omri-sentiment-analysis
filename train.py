@@ -25,7 +25,7 @@ DYN_RNN_COPY_THROUGH_STATE = True
 # test Dropout
 USE_DROPOUT = False
 # test uniform distribution batch generation
-USE_ONE_HOT_LABELS = True
+USE_ONE_HOT_LABELS = False
 
 def evaluate():
     """
