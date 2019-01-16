@@ -26,8 +26,6 @@ DYN_RNN_COPY_THROUGH_STATE = True
 USE_DROPOUT = False
 # test uniform distribution batch generation
 USE_UNIFORM_PROB = False
-
-
 USE_ONE_HOT_LABELS = not USE_UNIFORM_PROB
 
 def showLabelsStats(y_eval, y_train):
@@ -118,9 +116,11 @@ def train():
     # Do we need the state tuple? Because we don't want the cell to be
     # initialized with the state from previous sentence
     ## rnn_tuple_state = tf.nn.rnn_cell.LSTMStateTuple(init_state[0], init_state[1])
-    lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_hidden)
+
+    n_units = [n_hidden,n_hidden]
+    lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_units[0])
     lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
-    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_hidden)
+    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_units[1])
     lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
     cells = [lstm_cell_1, lstm_cell_2]
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
@@ -132,7 +132,7 @@ def train():
 
     # output layer
     # weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
-    weight = tf.Variable(tf.truncated_normal([128, num_classes]))
+    weight = tf.Variable(tf.truncated_normal([n_units[1], num_classes]))
     bias = tf.Variable(tf.constant(0.1, shape=[num_classes]))
 
     # Let's try this logic

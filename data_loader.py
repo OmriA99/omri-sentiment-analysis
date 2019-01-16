@@ -48,7 +48,7 @@ def get_data_params(base_dir_path):
     test = pd.read_csv(test_path, sep='\t')
 
     # params["max_seq_length"] = max(train.Phrase.str.len().max(), test.Phrase.str.len().max())
-    params["max_seq_length"] = 25
+    params["max_seq_length"] = 100
 
 
     # word_to_num_map
@@ -96,13 +96,13 @@ def process_inputs(X, data_params):
     processed_X = np.zeros((len(X), data_params["max_seq_length"]), dtype=np.int32)
 
     for idx, sentence in enumerate(X):
+
         integerized = integerize_sentence(sentence,
             data_params["word_to_num_map"] ,data_params["max_seq_length"])
 
         if DEBUG:
             if idx == 33:
                 print("idx = {} sentence = {}, integerized = {}".format(idx, sentence, integerized))
-
         processed_X[idx] = integerized
 
     return processed_X
