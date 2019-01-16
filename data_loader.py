@@ -18,7 +18,7 @@ UNKOWN_WORD = 399999
 WORD_TO_NUM_FILE = "embeddings/word_to_num.npy"
 DEBUG = False
 TEST_LOSS_CONVERGENCE = True
-TEST_CONVERGENCE_NUM_EXAMPLES = 50000
+TEST_CONVERGENCE_NUM_EXAMPLES = 60000
 
 # ~~ Helpers ~~
 def clean_sentence(string):
@@ -158,6 +158,8 @@ def load_data(data_params, one_hot_labels=True):
 
     X_values = train['Phrase']
     labels_values = train.Sentiment.values
+
+    print("[load_data()], X_values = {}, labels_values = {}".format(X_values.shape, labels_values.shape))
 
     if TEST_LOSS_CONVERGENCE:
         X_values = X_values[0:TEST_CONVERGENCE_NUM_EXAMPLES]
