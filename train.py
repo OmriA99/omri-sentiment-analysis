@@ -171,6 +171,17 @@ def train():
             # pass also
             X, y = next(train_batch_generator)
 
+            buckets = np.zeros([5])
+            for eval in y:
+                if USE_ONE_HOT_LABELS:
+                    for idx, val in enumerate(eval):
+                        if val == 1:
+                            break
+                    buckets[idx] += 1
+                else:
+                    buckets[eval] += 1
+            print("[train()], batch_y_stats = {}".format(buckets))
+
             X_lengths = get_lengths(X, PADD_VAL)
             if DEBUG:
                 print("X.shape = {}, X_lengths.shape = {}".format(X.shape, X_lengths.shape))

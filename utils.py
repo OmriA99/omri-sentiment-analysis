@@ -45,7 +45,7 @@ def batch_generator_uniform_prob(data, batch_size, num_classes):
     X, y, cls_ranges = sort_data(data, num_classes)
     print("[batch_generator_uniform_prob()], X = {}, y = {}, cls_ranges = {}".format(X.shape, y.shape, cls_ranges))
     if DEBUG:
-        print("X = {}, y = {}, cls_ranges = {}".format(X.shape, y.shape, cls_ranges))
+        print("[batch_generator_uniform_prob()], X = {}, y = {}, cls_ranges = {}".format(X.shape, y.shape, cls_ranges))
 
     if X.shape[0] != y.shape[0]:
         raise Exception("non matching dimensions for X ({}) and y ({})".format(
@@ -90,7 +90,7 @@ def sort_data(data, num_classes):
     X, y = data
     print("[sort_data()], X.shape = {}, y.shape = {}".format(X.shape, y.shape))
     if DEBUG:
-        print("[sort_data()], y.shape = {}".format(y.shape))
+        print("[sort_data()], X.shape = {}, y.shape = {}".format(X.shape, y.shape))
 
     sorted_indices = np.argsort(y)
     X = X[sorted_indices]
