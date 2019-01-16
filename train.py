@@ -95,6 +95,9 @@ def train():
     # eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
 
     X, y = next(train_batch_generator)
+    X, y = next(train_batch_generator)
+    X, y = next(train_batch_generator)
+    X, y = next(train_batch_generator)
     print("===============")
     print(X)
     print("===============")
