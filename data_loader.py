@@ -16,9 +16,9 @@ TEST_SET_FRACT = 0.2
 STRIP_SPECIAL_CHARS = re.compile("[^A-Za-z0-9 ]+")
 UNKOWN_WORD = 399999
 WORD_TO_NUM_FILE = "embeddings/word_to_num.npy"
-DEBUG = True
+DEBUG = False
 TEST_LOSS_CONVERGENCE = True
-TEST_CONVERGENCE_NUM_EXAMPLES = 10000
+TEST_CONVERGENCE_NUM_EXAMPLES = 50000
 
 # ~~ Helpers ~~
 def clean_sentence(string):
