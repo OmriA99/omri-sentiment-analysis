@@ -71,6 +71,13 @@ def train():
         buckets[idx] += 1
     print("[train()], evaluation_stats = {}".format(buckets))
 
+    for eval in X_eval:
+        for idx, val in enumerate(eval):
+            if val == 1:
+                break
+        buckets[idx] += 1
+    print("[train()], train_stats = {}".format(buckets))
+
     # Load GloVe embbeding vectors
     word_vectors = load_word_vectors(WORD_VECTORS_PATH)
 
