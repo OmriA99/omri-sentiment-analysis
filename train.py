@@ -114,9 +114,9 @@ def train():
     # initialized with the state from previous sentence
     ## rnn_tuple_state = tf.nn.rnn_cell.LSTMStateTuple(init_state[0], init_state[1])
     lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_hidden)
-    # lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
+    lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
     lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_hidden)
-    # lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
+    lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
     cells = [lstm_cell_1, lstm_cell_2]
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
