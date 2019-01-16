@@ -171,13 +171,7 @@ def train():
             # pass also
             X, y = next(train_batch_generator)
 
-            buckets = np.zeros([5])
-            for eval in y:
-                for idx, val in enumerate(eval):
-                    if val == 1:
-                        break
-                buckets[idx] += 1
-            print("[train()], batch_y_stats = {}".format(buckets))
+            print(X[17])
 
             X_lengths = get_lengths(X, PADD_VAL)
             if DEBUG:
