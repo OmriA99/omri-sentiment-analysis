@@ -71,7 +71,7 @@ def train():
         buckets[idx] += 1
     print("[train()], evaluation_stats = {}".format(buckets))
 
-    for eval in X_eval:
+    for eval in y_train:
         for idx, val in enumerate(eval):
             if val == 1:
                 break
