@@ -57,18 +57,28 @@ def train():
     data_params = data_loader.get_data_params(DATA_BASE_DIR)
     max_seq_length = data_params["max_seq_length"]
     X_train, X_eval, y_train, y_eval = data_loader.load_data(data_params, one_hot_labels=USE_ONE_HOT_LABELS)
-    print("==> Loaded data")
+    print("==> Loaded data [X_train = {}, y_train = {}, X_eval = {}, y_eval = {}]".format(
+        X_train.shape, y_train.shape, X_eval.shape, y_eval.shape
+        ))
 
     eval_iterations = math.ceil(float(X_eval.shape[0]) / batch_size)
+
+    buckets = np.zeros([5])
+    for eval in y_eval:
+        for idx, val in enumerate(eval):
+            if val == 1:
+                break
+        buckets[idx] += 1
+    print("[train()], evaluation_stats = {}".format(buckets))
 
     # Load GloVe embbeding vectors
     word_vectors = load_word_vectors(WORD_VECTORS_PATH)
 
     # Batch generators
-    # train_batch_generator = batch_generator_uniform_prob((X_train, y_train), batch_size, num_classes)
-    # eval_batch_generator = batch_generator_uniform_prob((X_eval, y_eval), batch_size, num_classes)
-    train_batch_generator = batch_generator((X_train, y_train), batch_size)
-    eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
+    train_batch_generator = batch_generator_uniform_prob((X_train, y_train), batch_size, num_classes)
+    eval_batch_generator = batch_generator_uniform_prob((X_eval, y_eval), batch_size, num_classes)
+    # train_batch_generator = batch_generator((X_train, y_train), batch_size)
+    # eval_batch_generator = batch_generator((X_eval, y_eval), batch_size)
 
 
     # ************** Model **************
