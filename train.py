@@ -11,7 +11,7 @@ import data_loader
 # params
 NUM_CLASSES = 5
 LSTM_NUM_UNITS = 64
-D_KEEP_PROB = 0.5
+D_KEEP_PROB = 0.2
 DATA_BASE_DIR = "data"
 LOGS_BASE_DIR = "logs"
 MODELS_BASE_DIR = "models"
@@ -126,9 +126,9 @@ def train():
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
     if DYN_RNN_COPY_THROUGH_STATE:
-        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
+        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
     else:
-        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32)
+        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
 
     # output layer
     # weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
