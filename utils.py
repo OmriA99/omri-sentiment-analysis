@@ -88,6 +88,7 @@ def sort_data(data, num_classes):
              index ranges for each class
     """
     X, y = data
+    print("[sort_data()], X.shape = {}, y.shape = {}".format(X.shape, y.shape))
     if DEBUG:
         print("[sort_data()], y.shape = {}".format(y.shape))
 
