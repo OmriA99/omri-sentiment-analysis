@@ -65,7 +65,7 @@ def train():
     # assigned after loading data
     max_seq_length = None
     exp_name = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    keep_prob = 0.8
+    keep_prob = 0.5
     n_hidden = 64
     num_classes = 5
     learning_rate = 1e-3
