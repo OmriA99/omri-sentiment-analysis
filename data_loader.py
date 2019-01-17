@@ -36,7 +36,7 @@ def get_data_params(base_dir_path):
 
     params = {}
 
-    train_path = os.path.join(base_dir_path, "train.tsv")
+    train_path = os.path.join(base_dir_path, "pp_data.tsv")
     test_path = os.path.join(base_dir_path, "test.tsv")
 
     # path
