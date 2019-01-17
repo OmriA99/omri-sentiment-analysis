@@ -68,7 +68,7 @@ def train():
     keep_prob = 0.2
     n_hidden = 128
     num_classes = 5
-    learning_rate = 1e-3
+    learning_rate = 1e-2
     model_save_path = os.path.join(MODELS_BASE_DIR, exp_name + '.cpkt')
     train_iterations = 100000
     eval_iterations = None
