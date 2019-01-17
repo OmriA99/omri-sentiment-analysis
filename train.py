@@ -65,7 +65,7 @@ def train():
     # assigned after loading data
     max_seq_length = None
     exp_name = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    keep_prob = 0.5
+    keep_prob = 0.2
     n_hidden = 128
     num_classes = 5
     learning_rate = 1e-3
@@ -80,6 +80,7 @@ def train():
     data_params = data_loader.get_data_params(DATA_BASE_DIR)
     max_seq_length = data_params["max_seq_length"]
     X_train, X_eval, y_train, y_eval = data_loader.load_data(data_params, one_hot_labels=USE_ONE_HOT_LABELS)
+
     print("==> Loaded data [X_train = {}, y_train = {}, X_eval = {}, y_eval = {}]".format(
         X_train.shape, y_train.shape, X_eval.shape, y_eval.shape
         ))

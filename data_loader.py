@@ -9,7 +9,7 @@ import os
 
 # Constants
 BASE_DIR = "data"
-TRAIN_DATA_PATH = "data/train.tsv"
+TRAIN_DATA_PATH = "data/pp_data"
 TEST_DATA_PATH = "data/test.tsv"
 NUM_CLASSES = 5
 TEST_SET_FRACT = 0.2
@@ -17,7 +17,7 @@ STRIP_SPECIAL_CHARS = re.compile("[^A-Za-z0-9 ]+")
 UNKOWN_WORD = 399999
 WORD_TO_NUM_FILE = "embeddings/word_to_num.npy"
 DEBUG = False
-TEST_LOSS_CONVERGENCE = True
+TEST_LOSS_CONVERGENCE = False
 TEST_CONVERGENCE_NUM_EXAMPLES = 75000
 
 # ~~ Helpers ~~
@@ -48,7 +48,7 @@ def get_data_params(base_dir_path):
     test = pd.read_csv(test_path, sep='\t')
 
     # params["max_seq_length"] = max(train.Phrase.str.len().max(), test.Phrase.str.len().max())
-    params["max_seq_length"] = 100
+    params["max_seq_length"] = 80
 
 
     # word_to_num_map
@@ -153,10 +153,6 @@ def load_data(data_params, one_hot_labels=True):
     :return: trainset, testset
     """
     train = pd.read_csv(data_params["train_path"], sep='\t')
-
-    print("================")
-    print(train.read(nrows=1))
-    print("================")
 
     # max_seq_len = data_params["max_seq_length"]
 
