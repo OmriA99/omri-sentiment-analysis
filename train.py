@@ -68,7 +68,7 @@ def train():
     keep_prob = 0.5
     n_hidden = 32
     num_classes = 5
-    learning_rate = 1e-3
+    learning_rate = 1e-8
     model_save_path = os.path.join(MODELS_BASE_DIR, exp_name + '.cpkt')
     train_iterations = 100000
     eval_iterations = None
@@ -141,7 +141,6 @@ def train():
     # last = tf.gather(outputs, int(outputs.get_shape()[0]) - 1)
     last = outputs[:, -1, :]
     prediction = (tf.matmul(last, weight) + bias)
-    print(f'[train()], prediction = {prediction.shape}')
     correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1))
     accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
 
