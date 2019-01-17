@@ -66,13 +66,13 @@ def train():
     max_seq_length = None
     exp_name = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     keep_prob = 0.2
-    n_hidden = 128
+    n_hidden = 64
     num_classes = 5
-    learning_rate = 1e-2
+    learning_rate = 1e-3
     model_save_path = os.path.join(MODELS_BASE_DIR, exp_name + '.cpkt')
     train_iterations = 100000
     eval_iterations = None
-    batch_size = 24
+    batch_size = 256
     word_vector_dim = 300
 
     # ************** Pre-Model **************
