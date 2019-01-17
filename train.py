@@ -65,14 +65,14 @@ def train():
     # assigned after loading data
     max_seq_length = None
     exp_name = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    keep_prob = 0.2
+    keep_prob = 0.8
     n_hidden = 64
     num_classes = 5
     learning_rate = 1e-3
     model_save_path = os.path.join(MODELS_BASE_DIR, exp_name + '.cpkt')
     train_iterations = 100000
     eval_iterations = None
-    batch_size = 256
+    batch_size = 64
     word_vector_dim = 300
 
     # ************** Pre-Model **************
@@ -153,7 +153,6 @@ def train():
     # Summaries
     tf.summary.scalar('Loss', loss)
     tf.summary.scalar('Accuracy', accuracy)
-    tf.summary.tensor_summary('Prediction', prediction)
     merged = tf.summary.merge_all()
     logdir = os.path.join(LOGS_BASE_DIR, exp_name, "")
 
