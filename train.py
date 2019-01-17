@@ -120,16 +120,16 @@ def train():
 
     n_units = [n_hidden,n_hidden]
     lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_units[0])
-    lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
+    # lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
     lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_units[1])
-    lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
+    # lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
     cells = [lstm_cell_1, lstm_cell_2]
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
     if DYN_RNN_COPY_THROUGH_STATE:
-        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
+        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
     else:
-        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32)
 
     # output layer
     # weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
