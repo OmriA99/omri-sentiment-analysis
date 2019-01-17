@@ -167,7 +167,7 @@ def train():
             # pass also
             X, y = next(train_batch_generator)
 
-            print(f'[train()], batch_y_labels = {labelDistrubution(y)}')
+            # print(f'[train()], batch_y_labels = {labelDistrubution(y)}')
 
             X_lengths = get_lengths(X, PADD_VAL)
             if DEBUG:
