@@ -153,6 +153,7 @@ def train():
     # Summaries
     tf.summary.scalar('Loss', loss)
     tf.summary.scalar('Accuracy', accuracy)
+    tf.summary.histogram('Prediction', prediction)
     merged = tf.summary.merge_all()
     logdir = os.path.join(LOGS_BASE_DIR, exp_name, "")
 
