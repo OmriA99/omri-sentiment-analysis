@@ -141,7 +141,7 @@ def train():
     # last = tf.gather(outputs, int(outputs.get_shape()[0]) - 1)
     last = outputs[:, -1, :]
     prediction = (tf.matmul(last, weight) + bias)
-
+    print(f'[train()], prediction = {prediction.shape}')
     correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1))
     accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
 
