@@ -127,9 +127,9 @@ def train():
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
     if DYN_RNN_COPY_THROUGH_STATE:
-        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
+        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
     else:
-        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32)
+        outputs, _ = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
 
     # output layer
     # weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
@@ -153,7 +153,7 @@ def train():
     # Summaries
     tf.summary.scalar('Loss', loss)
     tf.summary.scalar('Accuracy', accuracy)
-    tf.summary.histogram('Prediction', prediction)
+    tf.summary.scalar('Prediction', prediction)
     merged = tf.summary.merge_all()
     logdir = os.path.join(LOGS_BASE_DIR, exp_name, "")
 
