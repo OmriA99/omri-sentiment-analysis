@@ -63,7 +63,7 @@ def train():
     model_save_path = os.path.join(MODELS_BASE_DIR, exp_name + '.cpkt')
     train_iterations = 100000
     eval_iterations = None
-    batch_size = 24
+    batch_size = 4
     word_vector_dim = 300
 
     # ************** Pre-Model **************
