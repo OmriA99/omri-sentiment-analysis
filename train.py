@@ -113,12 +113,12 @@ def train():
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(
         [tf.nn.rnn_cell.DropoutWrapper(
             tf.nn.rnn_cell.LSTMCell(n), output_keep_prob=1) for n in n_units])
-    # lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_units[0])
+    lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_units[0])
     # lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
-    # lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_units[1])
+    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_units[1])
     # # lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
-    # cells = [lstm_cell_1, lstm_cell_2]
-    # stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
+    cells = [lstm_cell_1, lstm_cell_2]
+    stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
     if DYN_RNN_COPY_THROUGH_STATE:
         outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
