@@ -9,7 +9,7 @@ import os
 
 # Constants
 BASE_DIR = "data"
-TRAIN_DATA_PATH = "data/pp_data"
+TRAIN_DATA_PATH = "data/train.tsv"
 TEST_DATA_PATH = "data/test.tsv"
 NUM_CLASSES = 5
 TEST_SET_FRACT = 0.2
