@@ -347,7 +347,7 @@ def train(args):
             params["save_path"] = save_path
             params["model_save_path"] = model_save_path
             params["accuracy_file_path"] = accuracy_file_path
-            evaluate()
+            evaluate(params)
         
         else:
 
@@ -398,7 +398,7 @@ def train(args):
                     params["best_accuracy"] = best_accuracy
                     params["model_save_path"] = model_save_path
                     params["accuracy_file_path"] = accuracy_file_path
-                    evaluate(params, best_accuracy)
+                    evaluate(params)
 
 
 
