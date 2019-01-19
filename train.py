@@ -94,7 +94,6 @@ def evaluate(params):
     input_data = params["input_data"]
     labels = params["labels"]
     input_data_lengths = params["input_data_lengths"]
-    best_accuracy = params["best_accuracy"]
     save_path = params["save_path"]
     model_save_path = params["model_save_path"]
     accuracy_file_path = params["accuracy_file_path"]
@@ -397,7 +396,6 @@ def train(args):
                     params["labels"] = labels
                     params["input_data_lengths"] = input_data_lengths
                     params["best_accuracy"] = best_accuracy
-                    params["save_path"] = save_path
                     params["model_save_path"] = model_save_path
                     params["accuracy_file_path"] = accuracy_file_path
                     evaluate(params, best_accuracy)
