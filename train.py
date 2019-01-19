@@ -165,7 +165,7 @@ def train(args):
 
     word_vector_dim = 300
     
-    if evaulate_only:
+    if evaluate_only:
         if not os.path.exists(model_save_path):
             print("[-] Trying to evaluate a non-existing model!")
             return
