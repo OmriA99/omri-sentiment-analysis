@@ -25,7 +25,7 @@ DYN_RNN_COPY_THROUGH_STATE = True
 # test Dropout
 USE_DROPOUT = False
 # test uniform distribution batch generation
-USE_UNIFORM_PROB = False
+USE_UNIFORM_PROB = True
 USE_ONE_HOT_LABELS = not USE_UNIFORM_PROB
 
 
@@ -56,8 +56,9 @@ def train():
     # assigned after loading data
     max_seq_length = None
     exp_name = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    keep_prob = 0.3
+    keep_prob = 0.5
     n_hidden = 128
+    num_layers = 2
     num_classes = 5
     learning_rate = 1e-3
     model_save_path = os.path.join(MODELS_BASE_DIR, exp_name + '.cpkt')
@@ -109,32 +110,25 @@ def train():
     # initialized with the state from previous sentence
     ## rnn_tuple_state = tf.nn.rnn_cell.LSTMStateTuple(init_state[0], init_state[1])
 
-    n_units = [n_hidden,n_hidden]
+    n_units = [n_hidden] * num_layers
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(
         [tf.nn.rnn_cell.DropoutWrapper(
             tf.nn.rnn_cell.LSTMCell(n), output_keep_prob=keep_prob) for n in n_units])
-    lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_units[0])
-    # lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
-    lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_units[1])
-    # # lstm_cell_2 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_2, output_keep_prob=keep_prob)
-    cells = [lstm_cell_1, lstm_cell_2]
-    stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
     if DYN_RNN_COPY_THROUGH_STATE:
-        outputs, last = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
+        outputs, last_state = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
     else:
         outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32)
 
     # output layer
-    # weight = tf.Variable(tf.truncated_normal([n_hidden, num_classes]))
-    weight = tf.Variable(tf.truncated_normal([n_units[1], num_classes]))
+    weight = tf.Variable(tf.truncated_normal([n_units[num_layers-1], num_classes]))
     bias = tf.Variable(tf.constant(0.1, shape=[num_classes]))
 
-    # Let's try this logic
-    # outputs = tf.transpose(outputs, [1, 0, 2]) # max_seq_length, batch_size, word_vector_dim
-    # last = tf.gather(outputs, int(outputs.get_shape()[0]) - 1)
-    # last = outputs[:, -1, :]
-    prediction = (tf.matmul(last[1][1], weight) + bias)
+    # we want the state of the last layer
+    # state is a LSTMStateTuple that cotains state's c,h
+    # state[1] is the 'h' part of it
+    last = last_state[num_layers][1]
+    prediction = (tf.matmul(last, weight) + bias)
     correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1))
     accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
 
