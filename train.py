@@ -112,7 +112,7 @@ def train():
     n_units = [n_hidden,n_hidden]
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(
         [tf.nn.rnn_cell.DropoutWrapper(
-            tf.nn.rnn_cell.LSTMCell(n), output_keep_prob=1) for n in n_units])
+            tf.nn.rnn_cell.LSTMCell(n), output_keep_prob=keep_prob) for n in n_units])
     lstm_cell_1 = tf.nn.rnn_cell.LSTMCell(n_units[0])
     # lstm_cell_1 = tf.nn.rnn_cell.DropoutWrapper(cell=lstm_cell_1, output_keep_prob=keep_prob)
     lstm_cell_2 = tf.nn.rnn_cell.LSTMCell(n_units[1])
