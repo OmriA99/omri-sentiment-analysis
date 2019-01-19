@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
+from sklearn.utils import resample
 import re
 import sys
 import os
@@ -24,7 +25,6 @@ TEST_CONVERGENCE_NUM_EXAMPLES = 100000
 # number of sameples of label 2
 NUM_SAMPLES_UPSAMPLED = 75000
 RAND_STATE = 111
-UPSAMPLE = False
 
 
 # ~~ Helpers ~~
@@ -160,15 +160,6 @@ def load_data(data_params, one_hot_labels=True):
     :return: trainset, testset
     """
     train = pd.read_csv(data_params["train_path"], sep='\t')
-
-    if UPSAMPLE:
-        class_data = []
-        for i in NUM_CLASSES:
-            class_data[i] = train[train['Sentiment'] == i]
-            class_data[i] = resample(class_data[i], replace=True, n_samples=NUM_SAMPLES_UPSAMPLED,
-                                     random_state=RAND_STATE)
-
-        train = pd.concat([cls_data for cls_data in class_data])
 
     # max_seq_len = data_params["max_seq_length"]
 

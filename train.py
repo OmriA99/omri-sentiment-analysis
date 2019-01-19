@@ -11,8 +11,6 @@ import argparse
 
 # params
 NUM_CLASSES = 5
-LSTM_NUM_UNITS = 64
-D_KEEP_PROB = 0.2
 DATA_BASE_DIR = "data"
 LOGS_BASE_DIR = "logs"
 MODELS_BASE_DIR = "models"
@@ -23,7 +21,7 @@ DEBUG = False
 
 DYN_RNN_COPY_THROUGH_STATE = True
 USE_DROPOUT = True
-USE_UNIFORM_PROB = True
+USE_UNIFORM_PROB = False
 USE_ONE_HOT_LABELS = not USE_UNIFORM_PROB
 
 
@@ -80,7 +78,10 @@ def evaluate(params):
 
         best_accuracy = average_accuracy
         with open(accuracy_file_path, 'a+') as f:
-            f.write("{}/n".format(best_accuracy))
+            f.write("{}\n".format(best_accuracy))
+
+    return best_accuracy
+
 
 def train(args):
     """
@@ -211,7 +212,7 @@ def train(args):
             params["best_accuracy"] = best_accuracy
             params["model_save_path"] = model_save_path
             params["accuracy_file_path"] = accuracy_file_path
-            evaluate(params)
+            best_accuracy = evaluate(params)
 
         else:
             for iteration in tqdm.tqdm(range(train_iterations)):
@@ -248,7 +249,7 @@ def train(args):
                     params["best_accuracy"] = best_accuracy
                     params["model_save_path"] = model_save_path
                     params["accuracy_file_path"] = accuracy_file_path
-                    evaluate(params)
+                    best_accuracy = evaluate(params)
 
         # eval_writer.close()
 
