@@ -276,7 +276,7 @@ def train(args):
 
     # state[1] is the 'h' part of it
 
-    last = last_state[num_layers][1]
+    last = last_state[num_layers-1][1]
 
     prediction = (tf.matmul(last, weight) + bias)
 
