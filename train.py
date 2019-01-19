@@ -88,13 +88,17 @@ def evaluate(params):
     running it on the evaluation set
 
     """
+    sess = params["sess"]
+    saver = params["saver"]
+    iteration = params["iteration"]
     eval_batch_generator = params["eval_batch_generator"]
     accuracy = params["accuracy"]
     merged = params["merged"]
     input_data = params["input_data"]
     labels = params["labels"]
     input_data_lengths = params["input_data_lengths"]
-    save_path = params["save_path"]
+    eval_iterations = params["eval_iterations"]
+    best_accuracy = params["best_accuracy"]
     model_save_path = params["model_save_path"]
     accuracy_file_path = params["accuracy_file_path"]
     
@@ -337,14 +341,17 @@ def train(args):
             saver.restore(sess, model_save_path)
             print("Model restored")
             params = {}
+            params["sess"] = sess
+            params["saver"] = saver
+            params["iteration"] = iteration
             params["eval_batch_generator"] = eval_batch_generator
             params["accuracy"] = accuracy
             params["merged"] = merged
             params["input_data"] = input_data
             params["labels"] = labels
             params["input_data_lengths"] = input_data_lengths
+            params["eval_iterations"] = eval_iterations
             params["best_accuracy"] = best_accuracy
-            params["save_path"] = save_path
             params["model_save_path"] = model_save_path
             params["accuracy_file_path"] = accuracy_file_path
             evaluate(params)
@@ -389,12 +396,16 @@ def train(args):
 
                 if (iteration % 1000 == 0 and iteration != 0):
                     params = {}
+                    params["sess"] = sess
+                    params["saver"] = saver
+                    params["iteration"] = iteration
                     params["eval_batch_generator"] = eval_batch_generator
                     params["accuracy"] = accuracy
                     params["merged"] = merged
                     params["input_data"] = input_data
                     params["labels"] = labels
                     params["input_data_lengths"] = input_data_lengths
+                    params["eval_iterations"] = eval_iterations
                     params["best_accuracy"] = best_accuracy
                     params["model_save_path"] = model_save_path
                     params["accuracy_file_path"] = accuracy_file_path
