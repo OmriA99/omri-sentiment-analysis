@@ -427,7 +427,7 @@ if __name__ == '__main__':
     )
 
     parser.add_argument('-e', '--exp-name', required=True, type=str, help='Experiment name')
-    parser.add_argument('-ev', '--evaulate-only', action=store_true, help='evaluate given model')
+    parser.add_argument('-ev', '--evaulate-only', action='store_true', help='evaluate given model')
 
     main(parser.parse_args())
 
