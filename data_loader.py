@@ -167,7 +167,7 @@ def load_data(data_params, one_hot_labels=True):
             class_data[i] = resample(class_data[i], replace=True, n_samples=NUM_SAMPLES_UPSAMPLED,
                                      random_state=RAND_STATE)
 
-        train = pd.concat([cls_data for cls_data in class_data)
+        train = pd.concat([cls_data for cls_data in class_data])
 
     # max_seq_len = data_params["max_seq_length"]
 
