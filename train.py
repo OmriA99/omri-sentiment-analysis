@@ -121,7 +121,7 @@ def train():
     stacked_rnn_cell = tf.nn.rnn_cell.MultiRNNCell(cells)
 
     if DYN_RNN_COPY_THROUGH_STATE:
-        outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
+        outputs, last = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32, sequence_length=input_data_lengths)
     else:
         outputs, _ = tf.nn.dynamic_rnn(stacked_rnn_cell, data, dtype=tf.float32)
 
@@ -133,7 +133,7 @@ def train():
     # Let's try this logic
     # outputs = tf.transpose(outputs, [1, 0, 2]) # max_seq_length, batch_size, word_vector_dim
     # last = tf.gather(outputs, int(outputs.get_shape()[0]) - 1)
-    last = outputs[:, -1, :]
+    # last = outputs[:, -1, :]
     prediction = (tf.matmul(last, weight) + bias)
     correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1))
     accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
