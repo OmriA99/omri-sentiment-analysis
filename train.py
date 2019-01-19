@@ -28,7 +28,6 @@ USE_ONE_HOT_LABELS = not USE_UNIFORM_PROB
 
 
 def labelDistrubution(y):
-
     buckets = np.zeros([5])
 
     for arr in y:
@@ -61,7 +60,7 @@ def evaluate(params):
     best_accuracy = params["best_accuracy"]
     model_save_path = params["model_save_path"]
     accuracy_file_path = params["accuracy_file_path"]
-    
+
     total_accuracy = 0
     for eval_iteration in tqdm.tqdm(range(eval_iterations)):
         X, y = next(eval_batch_generator)
@@ -78,7 +77,7 @@ def evaluate(params):
         # save_path = saver.save(sess, model_save_path, global_step=iteration)
         save_path = saver.save(sess, model_save_path)
         print("saved to %s" % save_path)
-        
+
         best_accuracy = average_accuracy
         with open(accuracy_file_path, 'a+') as f:
             f.write("{}/n".format(best_accuracy))
@@ -107,7 +106,7 @@ def train(args):
     eval_iterations = None
     batch_size = 24
     word_vector_dim = 300
-    
+
     if evaluate_only:
         if not os.path.exists(model_save_path):
             print("[-] Trying to evaluate a non-existing model!")
@@ -194,7 +193,7 @@ def train(args):
         # eval_writer = tf.summary.FileWriter(os.path.join(logdir, "evaluation"))
         saver = tf.train.Saver()
         sess.run(tf.global_variables_initializer())
-        
+
         if evaluate_only:
             saver.restore(sess, model_save_path)
             print("Model restored")
@@ -213,7 +212,7 @@ def train(args):
             params["model_save_path"] = model_save_path
             params["accuracy_file_path"] = accuracy_file_path
             evaluate(params)
-        
+
         else:
             for iteration in tqdm.tqdm(range(train_iterations)):
                 X, y = next(train_batch_generator)
@@ -266,4 +265,3 @@ if __name__ == '__main__':
     parser.add_argument('-e', '--exp-name', required=True, type=str, help='Experiment name')
     parser.add_argument('-ev', '--evaulate-only', action='store_true', help='evaluate given model')
     main(parser.parse_args())
-
