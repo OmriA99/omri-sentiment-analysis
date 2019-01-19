@@ -43,9 +43,6 @@ def batch_generator_uniform_prob(data, batch_size, num_classes):
     Generates the next batch
     """
     X, y, cls_ranges = sort_data(data, num_classes)
-    print("[batch_generator_uniform_prob()], X = {}, y = {}, cls_ranges = {}".format(X.shape, y.shape, cls_ranges))
-    if DEBUG:
-        print("[batch_generator_uniform_prob()], X = {}, y = {}, cls_ranges = {}".format(X.shape, y.shape, cls_ranges))
 
     if X.shape[0] != y.shape[0]:
         raise Exception("non matching dimensions for X ({}) and y ({})".format(
@@ -71,11 +68,6 @@ def batch_generator_uniform_prob(data, batch_size, num_classes):
             Xs[idx] = X[rand_idx]
             ys[idx][label] = 1
 
-            if DEBUG:
-                print("[batch_generator_uniform_prob()], i = {}, range = {}, randint = {}, label = {}".format(
-                    idx, cls_ranges[label], rand_idx, label))
-                # print(Xs[i], ys[i])
-
         last = i+1
         yield Xs, ys
 
@@ -88,9 +80,6 @@ def sort_data(data, num_classes):
              index ranges for each class
     """
     X, y = data
-    print("[sort_data()], X.shape = {}, y.shape = {}".format(X.shape, y.shape))
-    if DEBUG:
-        print("[sort_data()], X.shape = {}, y.shape = {}".format(X.shape, y.shape))
 
     sorted_indices = np.argsort(y)
     X = X[sorted_indices]

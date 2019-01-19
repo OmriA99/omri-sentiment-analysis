@@ -170,12 +170,6 @@ def load_data(data_params, one_hot_labels=True):
         X_values = X_values[0:TEST_CONVERGENCE_NUM_EXAMPLES]
         labels_values = labels_values[0:TEST_CONVERGENCE_NUM_EXAMPLES]
 
-    if DEBUG:
-        print("X_Values.shape = {}".format(X_values.shape))
-        print("labels_values = {}".format(labels_values.shape))
-        idx = 123
-        print("idx = {}: {} --> {}".format(idx, X_values[idx], labels_values[idx]))
-
     X_values = process_inputs(X_values, data_params)
 
     # Convert into one hot vectors
@@ -185,45 +179,12 @@ def load_data(data_params, one_hot_labels=True):
     else:
         labels = labels_values
 
-    if DEBUG:
-        idx = 125584
-        print("idx = {}: X_Values[33] = {} --> labels[33] = {}".format(
-        idx, X_values[idx], labels[idx]))
-
-    X_train , X_eval , y_train , y_eval = train_test_split(X_values, labels, test_size = TEST_SET_FRACT)
-
-    if DEBUG:
-        print("X_train.shape = {}, y_train.shape = {}".format(
-            X_train.shape, y_train.shape))
-        print("X_test.shape = {}, y_test.shape = {}".format(
-            X_eval.shape, y_eval.shape))
-
-        idx = 5
-        print("Eval: idx = {} | {} --> {}".format(idx, X_eval[idx], y_eval[idx]))
-
     return X_train, X_eval, y_train, y_eval
 
 
 def main():
     data_params = get_data_params(BASE_DIR)
-    # show_stats()
-    if DEBUG:
-        # word to idx
-        word = 'brush'
-        print("word_to_num_map['{}'] = {}".format(
-            word, data_params['word_to_num_map'][word]))
-
-        # idxs to words
-        words_arr = np.load(WORD_TO_NUM_FILE)
-        nums = [29, 19612, 1069, 641, 740, 15860] #3
-        print("Num to Word:")
-        for num in nums:
-            print("{} --> {}".format(num, words_arr[num]))
-
-
-
     load_data(data_params)
-
 
 if __name__ == '__main__':
     main()
