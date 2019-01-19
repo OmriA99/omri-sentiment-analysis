@@ -165,7 +165,6 @@ def load_data(data_params, one_hot_labels=True):
 
     X_values = train['Phrase']
     labels_values = train.Sentiment.values
-    X_train , X_eval , y_train , y_eval = train_test_split(X_values, labels, test_size = TEST_SET_FRACT)
 
     if TEST_LOSS_CONVERGENCE:
         X_values = X_values[0:TEST_CONVERGENCE_NUM_EXAMPLES]
@@ -179,6 +178,8 @@ def load_data(data_params, one_hot_labels=True):
         labels[np.arange(len(labels_values)), labels_values] = 1
     else:
         labels = labels_values
+
+    X_train , X_eval , y_train , y_eval = train_test_split(X_values, labels, test_size = TEST_SET_FRACT)
 
     return X_train, X_eval, y_train, y_eval
 
