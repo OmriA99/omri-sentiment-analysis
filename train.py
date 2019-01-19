@@ -149,9 +149,13 @@ def train(args):
     num_classes = 5
 
     learning_rate = 1e-3
-    accuracy_file_path = os.path(MODELS_BASE_DIR, exp_name, "accuracies.txt")
+    exp_base_dir = os.path.join(MODELS_BASE_DIR, exp_name)
+    if not os.path.exists(exp_base_dir):
+        os.makedirs(exp_base_dir)
 
-    model_save_path = os.path.join(MODELS_BASE_DIR, exp_name, exp_name + '.cpkt')
+    accuracy_file_path = os.path.join(exp_base_dir, "accuracies.txt")
+
+    model_save_path = os.path.join(exp_base_dir, 'model.cpkt')
 
     train_iterations = 100000
 

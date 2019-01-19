@@ -11,6 +11,7 @@ import os
 BASE_DIR = "data"
 TRAIN_DATA_PATH = "data/train.tsv"
 TEST_DATA_PATH = "data/test.tsv"
+TEST_DATA_PATH = "data/test.tsv"
 NUM_CLASSES = 5
 TEST_SET_FRACT = 0.2
 STRIP_SPECIAL_CHARS = re.compile("[^A-Za-z0-9 ]+")
